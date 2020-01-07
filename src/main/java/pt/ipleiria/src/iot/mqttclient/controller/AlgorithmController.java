@@ -21,7 +21,12 @@ public class AlgorithmController {
     public AlgorithmController() throws Exception {
     }
 
-    @GetMapping("/aes128ecb")
+    @GetMapping("/plain")
+    public ResponseEntity<String> getPlain() throws Exception {
+        return ResponseEntity.ok(mqttClientIot.subscribe("test"));
+    }
+
+@GetMapping("/aes128ecb")
     public ResponseEntity<String> getAes128Ecb() throws Exception {
         byte[] cipher = IotUtils.asBytes(mqttClientIot.subscribe("test"));
         String myKey = "abcdefghijklmnop";
@@ -43,14 +48,5 @@ public class AlgorithmController {
 
         return ResponseEntity.ok(new String(DesEcb.decryptMessage(cipher, myKey.getBytes("UTF-8"))));
     }
-
-    @GetMapping("/chacha20")
-    public ResponseEntity<String> getChaCha20() throws Exception {
-        String myKey = "abcdefghijklmno123456789";
-        byte[] cipher = IotUtils.asBytes(mqttClientIot.subscribe("test"));
-
-        return ResponseEntity.ok("JAVA 11");
-    }
-
 
 }
