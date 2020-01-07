@@ -38,7 +38,7 @@ public class AlgorithmController {
 
     @GetMapping("/desecb")
     public ResponseEntity<String> getDes() throws Exception {
-        String myKey = "abcdefghijklmno123456789";
+        String myKey = "abcdefgh";
         byte[] cipher = IotUtils.asBytes(mqttClientIot.subscribe("test"));
 
         return ResponseEntity.ok(new String(DesEcb.decryptMessage(cipher, myKey.getBytes("UTF-8"))));
