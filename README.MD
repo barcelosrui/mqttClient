@@ -13,7 +13,6 @@ Esta plataforma foi desenvolvida em springboot ainda está numa embrionária mas
     * Endpoint /api/algorithm/auth/\<Algoritmo>
  * Autenticação e TLS
     * Endpoint /api/algorithm/tls/\<Algoritmo>
-    * NOTA: Não está Funcional
  
 |ALGORITMO       |ENDPOINT  |PASSWORD                |
 |----------------|----------|------------------------|
