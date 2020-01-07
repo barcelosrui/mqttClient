@@ -28,7 +28,7 @@ public class MqttClientIot {
         mqtt.setPassword(password);
         mqtt.setHost(serverURI);
         if (isSecure) {
-            SSLContext sslContext = getSslContextForCertificateFile("ca.crt");
+            SSLContext sslContext = IotUtils.getSslContextForCertificateFile("ca.crt");
             mqtt.setSslContext(sslContext);
         }
         connection = mqtt.blockingConnection();
@@ -52,38 +52,5 @@ public class MqttClientIot {
         return new String(message.getPayload());
     }
 
-    private static SSLContext getSslContextForCertificateFile(final  String fileName) {
-        try {
-            KeyStore keyStore = getKeyStore(fileName);
-            SSLContext sslContext = SSLContext.getInstance("SSL");
-            TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-            trustManagerFactory.init(keyStore);
-            sslContext.init(null, trustManagerFactory.getTrustManagers(), new SecureRandom());
-            return sslContext;
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
 
-    private static KeyStore getKeyStore(final String fileName) {
-        KeyStore keyStore = null;
-        try {
-            CertificateFactory cf = CertificateFactory.getInstance("X.509");
-            InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream(fileName);
-            Certificate ca;
-            try {
-                ca = cf.generateCertificate(inputStream);
-            } finally {
-                inputStream.close();
-            }
-
-            String keyStoreType = KeyStore.getDefaultType();
-            keyStore = KeyStore.getInstance(keyStoreType);
-            keyStore.load(null, null);
-            keyStore.setCertificateEntry("ca", ca);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return keyStore;
-    }
 }
