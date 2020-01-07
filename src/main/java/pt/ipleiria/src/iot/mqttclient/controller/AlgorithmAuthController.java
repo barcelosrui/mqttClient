@@ -9,13 +9,13 @@ import pt.ipleiria.src.iot.mqttclient.business.*;
 import java.nio.charset.StandardCharsets;
 
 @RestController
-@RequestMapping("/api/algorithm")
-public class AlgorithmController {
+@RequestMapping("/api/algorithm/auth")
+public class AlgorithmAuthController {
+    private MqttClientIot mqttClientIot = new MqttClientIot("tcp://localhost:1883","mqtt","mqtt");
+
     private static String topic = "alert";
 
-    private MqttClientIot mqttClientIot = new MqttClientIot("tcp://localhost:1883");
-
-    public AlgorithmController() throws Exception {
+    public AlgorithmAuthController() throws Exception {
 
     }
 
