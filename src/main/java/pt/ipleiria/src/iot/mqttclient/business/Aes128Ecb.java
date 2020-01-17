@@ -17,7 +17,7 @@ public class Aes128Ecb {
     public static byte[] decryptMessage(byte[] encryptedMessage, byte[] keyBytes) throws NoSuchPaddingException,
             NoSuchAlgorithmException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
 
-        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+        Cipher cipher = Cipher.getInstance("AES/ECB/NoPadding");
         SecretKey secretKey = new SecretKeySpec(keyBytes, "AES");
         cipher.init(Cipher.DECRYPT_MODE, secretKey);
         return cipher.doFinal(encryptedMessage);
